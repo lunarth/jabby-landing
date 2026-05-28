@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(238, 244, 255, 0.9), transparent 34rem),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 45%, #ffffff 100%);
+  color: #111827;
+}
+
+::selection {
+  background: rgba(232, 101, 26, 0.18);
+}
+
+.container-shell {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+}
+
+.section-pad {
+  @apply py-20 sm:py-24 lg:py-28;
+}
+
+.focus-ring {
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-jabby-orange;
+}
+
+@keyframes debt-stream {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes workflow-row-1 {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  10%,
+  78% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes workflow-row-2 {
+  0%,
+  10% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  20%,
+  78% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes workflow-row-3 {
+  0%,
+  20% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  30%,
+  78% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.debt-stream {
+  animation: debt-stream 18s linear infinite;
+  inset-inline: 0;
+  position: absolute;
+  top: 0;
+  will-change: transform;
+}
+
+.designed-marquee {
+  animation: marquee 20s linear infinite;
+  will-change: transform;
+}
+
+.designed-marquee-viewport {
+  overflow: hidden;
+  position: relative;
+}
+
+.designed-marquee-viewport::before,
+.designed-marquee-viewport::after {
+  bottom: 0;
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 64px;
+  z-index: 10;
+}
+
+.designed-marquee-viewport::before {
+  background: linear-gradient(to right, white, transparent);
+  left: 0;
+}
+
+.designed-marquee-viewport::after {
+  background: linear-gradient(to left, white, transparent);
+  right: 0;
+}
+
+.designed-marquee:hover {
+  animation-play-state: paused;
+}
+
+.workflow-row-1,
+.workflow-row-2,
+.workflow-row-3 {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.workflow-row-1 {
+  animation: workflow-row-1 4s ease-in-out infinite;
+}
+
+.workflow-row-2 {
+  animation: workflow-row-2 4s ease-in-out infinite;
+}
+
+.workflow-row-3 {
+  animation: workflow-row-3 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .debt-stream,
+  .designed-marquee,
+  .workflow-row-1,
+  .workflow-row-2,
+  .workflow-row-3 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
