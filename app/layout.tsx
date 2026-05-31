@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "jabby | Recouvrement automatisé pour les entreprises marocaines",
@@ -22,7 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
