@@ -4,7 +4,6 @@
 
 :root {
   color-scheme: light;
-  background: #f8fafc;
 }
 
 html {
@@ -12,170 +11,80 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at 20% 0%, rgba(238, 244, 255, 0.9), transparent 34rem),
-    linear-gradient(180deg, #ffffff 0%, #f8fafc 45%, #ffffff 100%);
+  background: #f8f9fa;
   color: #111827;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01";
 }
 
 ::selection {
-  background: rgba(232, 101, 26, 0.18);
+  background: rgba(27, 75, 155, 0.14);
 }
 
 .container-shell {
-  @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
-}
-
-.section-pad {
-  @apply py-20 sm:py-24 lg:py-28;
+  @apply mx-auto w-full max-w-shell px-5 sm:px-8;
 }
 
 .focus-ring {
-  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-jabby-orange;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jabby-blue focus-visible:ring-offset-2 focus-visible:ring-offset-white;
 }
 
-@keyframes debt-stream {
-  from {
-    transform: translateY(-50%);
-  }
-  to {
-    transform: translateY(0);
-  }
+.focus-ring-dark {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-jabby-navy;
 }
 
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* ---------------------------------------------------------------------------
+   Hero backdrop — fine engineering grid, faded at the edges. Quiet by design.
+--------------------------------------------------------------------------- */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(17, 24, 39, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 24, 39, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 80% at 50% 0%,
+    black 30%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 80% at 50% 0%,
+    black 30%,
+    transparent 75%
+  );
 }
 
-@keyframes workflow-row-1 {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  10%,
-  78% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90%,
-  100% {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes workflow-row-2 {
-  0%,
-  10% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  20%,
-  78% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90%,
-  100% {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes workflow-row-3 {
-  0%,
-  20% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  30%,
-  78% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90%,
-  100% {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.debt-stream {
-  animation: debt-stream 18s linear infinite;
-  inset-inline: 0;
-  position: absolute;
-  top: 0;
-  will-change: transform;
-}
-
-.designed-marquee {
-  animation: marquee 20s linear infinite;
-  will-change: transform;
-}
-
-.designed-marquee-viewport {
-  overflow: hidden;
-  position: relative;
-}
-
-.designed-marquee-viewport::before,
-.designed-marquee-viewport::after {
-  bottom: 0;
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  width: 64px;
-  z-index: 10;
-}
-
-.designed-marquee-viewport::before {
-  background: linear-gradient(to right, white, transparent);
-  left: 0;
-}
-
-.designed-marquee-viewport::after {
-  background: linear-gradient(to left, white, transparent);
-  right: 0;
-}
-
-.designed-marquee:hover {
-  animation-play-state: paused;
-}
-
-.workflow-row-1,
-.workflow-row-2,
-.workflow-row-3 {
+/* ---------------------------------------------------------------------------
+   Scroll reveal — applied only when JS is present (html.js), so the page
+   stays fully visible without JavaScript.
+--------------------------------------------------------------------------- */
+html.js [data-reveal] {
   opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-.workflow-row-1 {
-  animation: workflow-row-1 4s ease-in-out infinite;
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
 }
 
-.workflow-row-2 {
-  animation: workflow-row-2 4s ease-in-out infinite;
+/* ---------------------------------------------------------------------------
+   Chart line draw-in
+--------------------------------------------------------------------------- */
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.workflow-row-3 {
-  animation: workflow-row-3 4s ease-in-out infinite;
+.chart-line {
+  stroke-dasharray: 640;
+  stroke-dashoffset: 640;
+  animation: draw-line 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -188,13 +97,13 @@ body {
     transition-duration: 0.001ms !important;
   }
 
-  .debt-stream,
-  .designed-marquee,
-  .workflow-row-1,
-  .workflow-row-2,
-  .workflow-row-3 {
-    animation: none !important;
+  html.js [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .chart-line {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
   }
 }
