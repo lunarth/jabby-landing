@@ -1,49 +1,33 @@
-import { Navbar } from "@/components/site/navbar";
-import { Footer } from "@/components/site/footer";
 import { Hero } from "@/components/sections/hero";
-import { SectorStrip } from "@/components/sections/sectors";
+import { SectorStrip } from "@/components/sections/sector-strip";
 import { Problem } from "@/components/sections/problem";
-import { Platform } from "@/components/sections/platform";
+import { Solution } from "@/components/sections/solution";
+import { FirstParty } from "@/components/sections/first-party";
 import { HowItWorks } from "@/components/sections/how-it-works";
+import { Comparison } from "@/components/sections/comparison";
+import { UseCases } from "@/components/sections/use-cases";
 import { Security } from "@/components/sections/security";
+import { ResultsTeaser } from "@/components/sections/results-teaser";
+import { Commitments } from "@/components/sections/commitments";
 import { Faq } from "@/components/sections/faq";
-import { Cta } from "@/components/sections/cta";
-import { Contact } from "@/components/sections/contact";
-import { faqs } from "@/components/sections/faq-data";
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer
-    }
-  }))
-};
+import { FinalCta } from "@/components/sections/final-cta";
 
 export default function Home() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <Navbar />
-      <main>
-        <Hero />
-        <SectorStrip />
-        <Problem />
-        <Platform />
-        <HowItWorks />
-        <Security />
-        <Faq />
-        <Cta />
-      </main>
-      <Contact />
-      <Footer />
-    </>
+    <main>
+      <Hero />
+      <SectorStrip />
+      <Problem />
+      <Solution />
+      <FirstParty />
+      <HowItWorks />
+      <Comparison />
+      <UseCases />
+      <Security />
+      <ResultsTeaser />
+      <Commitments />
+      <Faq />
+      <FinalCta />
+    </main>
   );
 }

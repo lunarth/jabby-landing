@@ -31,12 +31,12 @@ export default function OpengraphImage() {
               color: "#FFFFFF",
               fontSize: 64,
               fontWeight: 700,
-              letterSpacing: -2,
+              letterSpacing: 0,
               lineHeight: 1.1,
               maxWidth: 900
             }}
           >
-            L&apos;infrastructure moderne du recouvrement amiable.
+            Confiez vos créances. Récupérez votre trésorerie.
           </div>
           <div
             style={{
@@ -46,13 +46,13 @@ export default function OpengraphImage() {
               maxWidth: 860
             }}
           >
-            Orchestration multicanale, pilotage en temps réel et journal
-            d&apos;audit complet — conçu pour les entreprises marocaines.
+            Le recouvrement amiable, opéré de bout en bout pour les entreprises
+            marocaines. Tracé à chaque action, rémunéré au résultat.
           </div>
         </div>
 
         <div style={{ display: "flex", gap: 16 }}>
-          {["Orchestration", "Traçabilité", "Conformité"].map((label) => (
+          {["Au succès", "Traçabilité", "Conformité"].map((label) => (
             <div
               key={label}
               style={{

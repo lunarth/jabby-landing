@@ -9,11 +9,10 @@ export function Eyebrow({
 }) {
   return (
     <p
-      className={`inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-eyebrow ${
-        tone === "dark" ? "text-white/70" : "text-jabby-blue"
+      className={`text-xs font-semibold uppercase tracking-eyebrow ${
+        tone === "dark" ? "text-white/60" : "text-jabby-blue"
       }`}
     >
-      <span className="h-0.5 w-5 rounded-full bg-jabby-orange" aria-hidden />
       {children}
     </p>
   );

@@ -1,32 +1,41 @@
 import { NextResponse } from "next/server";
 
-const SWEEGO_API_URL = "https://api.sweego.io/send";
+const SWEEGO_ENDPOINT = "https://api.sweego.io/send";
 const DEFAULT_TO_EMAIL = "contact@jabby.io";
 const DEFAULT_FROM_EMAIL = "Jabby <noreply@jabby.io>";
 
 type ContactPayload = {
   name?: unknown;
+  role?: unknown;
+  company?: unknown;
   email?: unknown;
+  sector?: unknown;
+  volume?: unknown;
   message?: unknown;
 };
 
-function parseSender(value: string) {
-  const match = value.match(/^\s*(.*?)\s*<([^>]+)>\s*$/);
-  if (match) {
-    return {
-      name: match[1].trim() || "Jabby",
-      email: match[2].trim()
-    };
-  }
-
-  return {
-    name: "Jabby",
-    email: value.trim()
-  };
+function asString(value: unknown) {
+  return typeof value === "string" ? value.trim() : "";
 }
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function parseSender(value: string) {
+  const match = value.match(/^(.*)<([^>]+)>$/);
+
+  if (!match) {
+    return {
+      name: "Jabby",
+      email: value.trim()
+    };
+  }
+
+  return {
+    name: match[1].trim().replace(/^"|"$/g, "") || "Jabby",
+    email: match[2].trim()
+  };
 }
 
 export async function POST(request: Request) {
@@ -36,51 +45,62 @@ export async function POST(request: Request) {
     payload = (await request.json()) as ContactPayload;
   } catch {
     return NextResponse.json(
-      { ok: false, message: "Requete invalide." },
+      { ok: false, message: "La demande est illisible. Merci de réessayer." },
       { status: 400 }
     );
   }
 
-  const name = String(payload.name ?? "").trim();
-  const email = String(payload.email ?? "").trim().toLowerCase();
-  const message = String(payload.message ?? "").trim();
+  const name = asString(payload.name);
+  const role = asString(payload.role);
+  const company = asString(payload.company);
+  const email = asString(payload.email).toLowerCase();
+  const sector = asString(payload.sector);
+  const volume = asString(payload.volume);
+  const message = asString(payload.message);
 
-  if (name.length < 2 || name.length > 120 || !isValidEmail(email)) {
+  if (!name || !isValidEmail(email)) {
     return NextResponse.json(
-      { ok: false, message: "Merci de renseigner un nom et un email professionnel valides." },
-      { status: 400 }
-    );
-  }
-
-  if (message.length > 4000) {
-    return NextResponse.json(
-      { ok: false, message: "Votre message est trop long." },
+      {
+        ok: false,
+        message: "Merci de renseigner un nom et un email professionnel valides."
+      },
       { status: 400 }
     );
   }
 
   const apiKey = process.env.SWEEGO_API_KEY;
+
   if (!apiKey) {
     return NextResponse.json(
-      { ok: false, message: "Le formulaire n'est pas encore configuré." },
+      {
+        ok: false,
+        message:
+          "Le formulaire n'est pas encore configuré. Écrivez-nous directement."
+      },
       { status: 500 }
     );
   }
 
   const toEmail = process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL;
   const from = parseSender(process.env.CONTACT_FROM_EMAIL || DEFAULT_FROM_EMAIL);
-
-  const emailBody = [
-    "Nouvelle demande de demo jabby",
+  const subject = `Demande de démo Jabby — ${company || name}`;
+  const body = [
+    "Nouvelle demande de démo depuis jabby.io",
     "",
     `Nom : ${name}`,
+    role ? `Fonction : ${role}` : null,
+    company ? `Société : ${company}` : null,
     `Email : ${email}`,
+    sector ? `Secteur : ${sector}` : null,
+    volume ? `Volume de créances en cours : ${volume}` : null,
     "",
     "Message :",
-    message || "Aucun message renseigne."
-  ].join("\n");
+    message || "(non renseigné)"
+  ]
+    .filter(Boolean)
+    .join("\n");
 
-  const sweegoResponse = await fetch(SWEEGO_API_URL, {
+  const response = await fetch(SWEEGO_ENDPOINT, {
     method: "POST",
     headers: {
       "Api-Key": apiKey,
@@ -91,23 +111,25 @@ export async function POST(request: Request) {
       provider: "sweego",
       recipients: [{ email: toEmail }],
       from,
-      subject: `Nouvelle demande de demo jabby - ${name}`,
-      "message-txt": emailBody
+      subject,
+      "message-txt": body
     })
   });
 
-  if (!sweegoResponse.ok) {
-    const responseText = await sweegoResponse.text().catch(() => "");
-    console.error("Sweego contact email failed", {
-      status: sweegoResponse.status,
-      response: responseText
-    });
-
+  if (!response.ok) {
     return NextResponse.json(
-      { ok: false, message: "Impossible d'envoyer la demande pour le moment." },
+      {
+        ok: false,
+        message:
+          "L'envoi n'a pas abouti. Écrivez-nous directement à contact@jabby.io."
+      },
       { status: 502 }
     );
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({
+    ok: true,
+    message:
+      "Merci, votre demande a bien été envoyée. Nous revenons vers vous rapidement."
+  });
 }

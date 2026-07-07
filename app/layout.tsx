@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
-import { RevealRuntime } from "@/components/ui/reveal-runtime";
+import { Navbar } from "@/components/site/navbar";
+import { Footer } from "@/components/site/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,36 +15,38 @@ const siteUrl = "https://jabby.io";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "jabby — Infrastructure de recouvrement amiable pour le Maroc",
+  title: {
+    default: "jabby | Recouvrement amiable opéré au succès, Maroc",
+    template: "%s | jabby"
+  },
   description:
-    "jabby permet aux équipes finance, recouvrement et risque d'orchestrer, suivre et tracer leurs actions de recouvrement amiable : relances multicanales, liens de paiement, pilotage en temps réel et journal d'audit complet.",
+    "jabby opère votre recouvrement amiable de bout en bout, au nom de votre entreprise : relances multicanales, négociation, encaissement, journal d'audit complet. Vous ne payez qu'au résultat.",
   keywords: [
-    "recouvrement",
-    "recouvrement amiable",
-    "créances",
-    "impayés",
-    "Maroc",
-    "relances de paiement",
-    "trésorerie",
-    "DAF"
+    "recouvrement amiable Maroc",
+    "récupérer impayés entreprise",
+    "recouvrement créances Maroc",
+    "relance impayés au succès",
+    "loi 69-21 recouvrement",
+    "DSO",
+    "trésorerie"
   ],
   alternates: {
     canonical: "/"
   },
   openGraph: {
-    title: "jabby — Infrastructure de recouvrement amiable",
+    title: "jabby | Recouvrement amiable opéré au succès",
     description:
-      "Orchestrez, suivez et tracez chaque action de recouvrement amiable, du premier rappel à l'encaissement. Conçu pour les entreprises marocaines.",
+      "Confiez vos créances. Récupérez votre trésorerie. Service opéré de bout en bout, tracé à chaque action, rémunéré au résultat.",
     url: siteUrl,
     siteName: "jabby",
     locale: "fr_MA",
     type: "website"
   },
   twitter: {
-    card: "summary",
-    title: "jabby — Infrastructure de recouvrement amiable",
+    card: "summary_large_image",
+    title: "jabby | Recouvrement amiable opéré au succès",
     description:
-      "Orchestrez, suivez et tracez chaque action de recouvrement amiable, du premier rappel à l'encaissement."
+      "Confiez vos créances. Récupérez votre trésorerie. Service opéré, tracé, rémunéré au résultat."
   },
   robots: {
     index: true,
@@ -64,7 +67,7 @@ const organizationJsonLd = {
   url: siteUrl,
   email: "contact@jabby.io",
   description:
-    "Infrastructure de recouvrement amiable pour les entreprises marocaines : orchestration multicanale, liens de paiement, pilotage en temps réel et journal d'audit.",
+    "Service de recouvrement amiable opéré de bout en bout pour les entreprises marocaines, rémunéré au succès, avec journal d'audit complet.",
   areaServed: "MA"
 };
 
@@ -76,12 +79,13 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <body className="font-sans">
-        <RevealRuntime />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <Navbar />
         {children}
+        <Footer />
         <Analytics />
       </body>
     </html>

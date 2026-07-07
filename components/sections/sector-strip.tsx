@@ -1,12 +1,12 @@
 const sectors = [
-  "Sociétés de financement",
-  "Microfinance",
-  "Assurance",
-  "Santé privée",
   "Éducation privée",
-  "Télécoms",
-  "B2B & services",
-  "Immobilier"
+  "Santé privée",
+  "Distribution & B2B",
+  "Microfinance",
+  "Financement & leasing",
+  "Assurance",
+  "Immobilier",
+  "Télécom"
 ];
 
 export function SectorStrip() {
@@ -15,11 +15,11 @@ export function SectorStrip() {
       aria-label="Secteurs couverts"
       className="border-y border-jabby-border bg-white"
     >
-      <div className="container-shell py-10">
+      <div className="container-shell py-9">
         <p className="text-center text-xs font-semibold uppercase tracking-eyebrow text-jabby-faint">
-          Conçu pour les organisations qui gèrent des volumes d&apos;impayés
+          Au service des organisations qui gèrent des volumes d&apos;impayés
         </p>
-        <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
+        <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
           {sectors.map((sector, index) => (
             <li key={sector} className="flex items-center gap-x-2">
               <span className="px-2 text-[15px] font-medium text-jabby-muted">

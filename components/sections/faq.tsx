@@ -1,82 +1,49 @@
-"use client";
-
-import { useState } from "react";
-import { Plus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { faqs } from "./faq-data";
-
-function FaqItem({
-  question,
-  answer,
-  open,
-  onToggle
-}: {
-  question: string;
-  answer: string;
-  open: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <div className={`transition-colors duration-300 ${open ? "bg-jabby-tintBlue/40" : "bg-white"}`}>
-      <h3>
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-expanded={open}
-          className="focus-ring flex w-full items-center justify-between gap-5 rounded-lg p-6 text-left text-base font-bold text-jabby-ink transition-colors hover:text-jabby-blue"
-        >
-          {question}
-          <span
-            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ease-out-expo ${
-              open
-                ? "rotate-45 border-jabby-blue bg-jabby-blue text-white"
-                : "border-jabby-border bg-white text-jabby-blue"
-            }`}
-            aria-hidden
-          >
-            <Plus className="h-4 w-4" strokeWidth={2} />
-          </span>
-        </button>
-      </h3>
-      <div
-        className={`grid transition-all duration-[420ms] ease-out-expo ${
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <p className="max-w-3xl px-6 pb-6 text-[15px] leading-7 text-jabby-muted">{answer}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { SectionHeading } from "@/components/ui/section";
+import { homeFaqs } from "@/lib/faqs";
 
 export function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
-    <section id="faq" className="scroll-mt-20 bg-white py-24 lg:py-32">
-      <div className="container-shell">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow text-jabby-orange">FAQ</p>
-          <h2 className="mt-4 text-3xl font-bold leading-[1.12] tracking-normal text-jabby-ink sm:text-[44px]">
-            Les questions qu&apos;on nous pose souvent.
-          </h2>
-        </Reveal>
+    <section id="faq" className="scroll-mt-20 bg-white">
+      <div className="container-shell py-20 lg:py-24">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+          <Reveal>
+            <SectionHeading
+              eyebrow="FAQ"
+              title="Les questions d'un comité d'achat"
+              lede="Les réponses complètes, sans détour, aux objections les plus fréquentes."
+            />
+            <a
+              href="/faq"
+              className="focus-ring mt-6 inline-flex items-center gap-2 rounded-md text-sm font-semibold text-jabby-blue transition-colors hover:text-jabby-blueHover"
+            >
+              Voir la FAQ complète
+              <ArrowRight className="h-4 w-4" strokeWidth={2} aria-hidden />
+            </a>
+          </Reveal>
 
-        <Reveal delay={120}>
-          <div className="mx-auto mt-12 max-w-4xl divide-y divide-jabby-border overflow-hidden rounded-3xl border border-jabby-border bg-white shadow-card">
-            {faqs.map((faq, index) => (
-              <FaqItem
-                key={faq.question}
-                question={faq.question}
-                answer={faq.answer}
-                open={openIndex === index}
-                onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-              />
-            ))}
-          </div>
-        </Reveal>
+          <Reveal delay={100}>
+            <div className="divide-y divide-jabby-border overflow-hidden rounded-2xl border border-jabby-border bg-white shadow-card">
+              {homeFaqs.map((faq) => (
+                <details key={faq.question} className="group">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-5 text-left text-[15px] font-semibold text-jabby-ink transition-colors hover:bg-jabby-bg/60 [&::-webkit-details-marker]:hidden">
+                    {faq.question}
+                    <span
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-jabby-border text-jabby-blue transition-transform duration-200 group-open:rotate-45"
+                      aria-hidden
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <p className="px-6 pb-6 text-[15px] leading-7 text-jabby-muted">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

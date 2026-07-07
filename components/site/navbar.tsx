@@ -2,31 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { Logo } from "@/components/ui/section";
 
 const navItems = [
-  { label: "Plateforme", href: "#plateforme" },
-  { label: "Fonctionnement", href: "#fonctionnement" },
-  { label: "Sécurité", href: "#securite" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" }
+  { label: "Comment ça marche", href: "/comment-ca-marche" },
+  { label: "Secteurs", href: "/secteurs" },
+  { label: "Résultats", href: "/resultats" },
+  { label: "Sécurité", href: "/securite" },
+  { label: "Tarification", href: "/tarification" }
 ];
 
-export function Logo({ light = false }: { light?: boolean }) {
-  return (
-    <a
-      href="#top"
-      className={`${light ? "focus-ring-dark" : "focus-ring"} inline-flex items-baseline rounded-md text-2xl font-bold tracking-tight`}
-      aria-label="jabby — retour en haut de page"
-    >
-      <span className={light ? "text-white" : "text-jabby-blue"}>jabb</span>
-      <span className="text-jabby-orange">y</span>
-    </a>
-  );
-}
+const secondaryItems = [
+  { label: "FAQ", href: "/faq" },
+  { label: "À propos", href: "/a-propos" }
+];
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -37,76 +31,80 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-jabby-border/80 bg-white/85 shadow-hairline backdrop-blur-xl"
-          : "border-b border-transparent bg-white/60 backdrop-blur-md"
+      className={`sticky top-0 z-50 border-b bg-white/90 backdrop-blur-md transition-colors duration-300 ${
+        scrolled ? "border-jabby-border" : "border-transparent"
       }`}
     >
-      <nav className="container-shell flex h-16 items-center justify-between gap-6">
-        <Logo />
+      <nav
+        className="container-shell flex h-16 items-center justify-between gap-6"
+        aria-label="Navigation principale"
+      >
+        <Link href="/" className="focus-ring rounded-md" aria-label="jabby, accueil">
+          <Logo />
+        </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
-              className="focus-ring rounded-lg px-3 py-2 text-sm font-medium text-jabby-muted transition-colors duration-200 hover:bg-jabby-tintBlue/70 hover:text-jabby-blue"
+              className="focus-ring rounded-md text-sm font-medium text-jabby-muted transition-colors hover:text-jabby-ink"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
 
         <div className="flex items-center gap-3">
-          <a
-            href="#contact"
-            className="focus-ring hidden min-h-10 items-center rounded-xl bg-jabby-blue px-4 text-sm font-semibold text-white shadow-glowBlue transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:bg-jabby-blueHover sm:inline-flex"
+          <Link
+            href="/contact"
+            className="focus-ring hidden h-10 items-center rounded-lg bg-jabby-blue px-4 text-sm font-semibold text-white shadow-hairline transition-colors hover:bg-jabby-blueHover sm:inline-flex"
           >
             Demander une démo
-          </a>
+          </Link>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-jabby-border bg-white text-jabby-ink lg:hidden"
+            className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-lg border border-jabby-border text-jabby-ink lg:hidden"
           >
             {open ? (
-              <X className="h-5 w-5" strokeWidth={2} aria-hidden />
+              <X className="h-5 w-5" strokeWidth={1.8} aria-hidden />
             ) : (
-              <Menu className="h-5 w-5" strokeWidth={2} aria-hidden />
+              <Menu className="h-5 w-5" strokeWidth={1.8} aria-hidden />
             )}
           </button>
         </div>
       </nav>
 
-      {/* Mobile panel */}
-      <div
-        className={`overflow-hidden border-jabby-border/80 bg-white/95 backdrop-blur-xl transition-all duration-300 ease-out-expo lg:hidden ${
-          open ? "max-h-96 border-b" : "max-h-0"
-        }`}
-      >
-        <div className="container-shell flex flex-col gap-1 py-4">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
+      {open ? (
+        <div
+          id="mobile-menu"
+          className="border-t border-jabby-border bg-white lg:hidden"
+        >
+          <div className="container-shell flex flex-col gap-1 py-4">
+            {[...navItems, ...secondaryItems].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="focus-ring rounded-lg px-3 py-2.5 text-[15px] font-medium text-jabby-ink transition-colors hover:bg-jabby-bg"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
               onClick={() => setOpen(false)}
-              className="focus-ring rounded-lg px-3 py-2.5 text-[15px] font-medium text-jabby-ink transition-colors hover:bg-jabby-tintBlue/70 hover:text-jabby-blue"
+              className="focus-ring mt-2 inline-flex h-11 items-center justify-center rounded-lg bg-jabby-blue px-4 text-sm font-semibold text-white"
             >
-              {item.label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className="focus-ring mt-2 inline-flex min-h-11 items-center justify-center rounded-xl bg-jabby-blue px-4 text-sm font-semibold text-white sm:hidden"
-          >
-            Demander une démo
-          </a>
+              Demander une démo
+            </Link>
+          </div>
         </div>
-      </div>
+      ) : null}
     </header>
   );
 }
