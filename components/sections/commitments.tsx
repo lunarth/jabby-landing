@@ -43,7 +43,7 @@ export function Commitments() {
                 <p className="text-sm font-semibold tabular-nums text-jabby-orange">
                   {commitment.number}
                 </p>
-                <h3 className="mt-3 text-base font-semibold tracking-[-0.01em] text-jabby-ink">
+                <h3 className="mt-3 text-base font-semibold tracking-normal text-jabby-ink">
                   {commitment.title}
                 </h3>
                 <p className="mt-2.5 text-sm leading-6 text-jabby-muted">

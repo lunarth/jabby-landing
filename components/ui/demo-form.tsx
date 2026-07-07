@@ -24,7 +24,7 @@ export function DemoForm() {
       `Nom : ${name}\nSociété : ${company}\nEmail : ${email}\n\n${message}`
     );
 
-    window.location.href = `mailto:contact@jabby.ma?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:contact@jabby.io?subject=${subject}&body=${body}`;
     setSubmitted(true);
   }
 
@@ -116,10 +116,10 @@ export function DemoForm() {
           ? "Votre client email s'est ouvert avec la demande préremplie. Vous pouvez aussi nous écrire directement."
           : "L'envoi ouvre votre client email avec la demande préremplie."}{" "}
         <a
-          href="mailto:contact@jabby.ma"
+          href="mailto:contact@jabby.io"
           className="focus-ring rounded font-medium text-jabby-blue"
         >
-          contact@jabby.ma
+          contact@jabby.io
         </a>
       </p>
     </form>

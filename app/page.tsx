@@ -1,22 +1,36 @@
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { Hero } from "@/components/sections/hero";
-import { SectorStrip } from "@/components/sections/sector-strip";
+import { SectorStrip } from "@/components/sections/sectors";
 import { Problem } from "@/components/sections/problem";
 import { Platform } from "@/components/sections/platform";
 import { HowItWorks } from "@/components/sections/how-it-works";
-import { Orchestration } from "@/components/sections/orchestration";
 import { Security } from "@/components/sections/security";
-import { UseCases } from "@/components/sections/use-cases";
-import { Integrations } from "@/components/sections/integrations";
-import { Commitments } from "@/components/sections/commitments";
 import { Faq } from "@/components/sections/faq";
-import { FinalCta } from "@/components/sections/final-cta";
+import { Cta } from "@/components/sections/cta";
 import { Contact } from "@/components/sections/contact";
+import { faqs } from "@/components/sections/faq-data";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer
+    }
+  }))
+};
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Navbar />
       <main>
         <Hero />
@@ -24,15 +38,11 @@ export default function Home() {
         <Problem />
         <Platform />
         <HowItWorks />
-        <Orchestration />
         <Security />
-        <UseCases />
-        <Integrations />
-        <Commitments />
         <Faq />
-        <FinalCta />
-        <Contact />
+        <Cta />
       </main>
+      <Contact />
       <Footer />
     </>
   );

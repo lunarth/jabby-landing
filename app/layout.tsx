@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { RevealRuntime } from "@/components/ui/reveal-runtime";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -9,7 +10,7 @@ const inter = Inter({
   display: "swap"
 });
 
-const siteUrl = "https://jabby.ma";
+const siteUrl = "https://jabby.io";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "jabby — Infrastructure de recouvrement amiable",
     description:
       "Orchestrez, suivez et tracez chaque action de recouvrement amiable, du premier rappel à l'encaissement."
@@ -61,7 +62,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "jabby",
   url: siteUrl,
-  email: "contact@jabby.ma",
+  email: "contact@jabby.io",
   description:
     "Infrastructure de recouvrement amiable pour les entreprises marocaines : orchestration multicanale, liens de paiement, pilotage en temps réel et journal d'audit.",
   areaServed: "MA"
@@ -73,17 +74,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // suppressHydrationWarning: the inline script below adds the `js` class
-    // to <html> before hydration, which is expected.
-    <html lang="fr" className={inter.variable} suppressHydrationWarning>
+    <html lang="fr" className={inter.variable}>
       <body className="font-sans">
-        {/* Enables scroll-reveal styling only when JS runs; the page stays
-            fully visible for crawlers and no-JS visitors. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')"
-          }}
-        />
+        <RevealRuntime />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

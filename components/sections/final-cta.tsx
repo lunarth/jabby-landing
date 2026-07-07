@@ -12,7 +12,7 @@ export function FinalCta() {
               aria-hidden
             />
             <div className="relative max-w-2xl">
-              <h2 className="text-3xl font-semibold leading-[1.12] tracking-[-0.02em] text-white sm:text-4xl">
+              <h2 className="text-3xl font-semibold leading-[1.12] tracking-normal text-white sm:text-4xl">
                 Parlons de votre portefeuille.
               </h2>
               <p className="mt-5 text-lg leading-8 text-white/75">
@@ -20,15 +20,15 @@ export function FinalCta() {
                 segments et vos contraintes réglementaires. Sans engagement.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Button href="#contact" variant="onDark" size="lg">
+                <Button href="#contact" variant="light" size="lg">
                   Demander une démo
                 </Button>
                 <Button
-                  href="mailto:contact@jabby.ma"
-                  variant="ghostDark"
+                  href="mailto:contact@jabby.io"
+                  variant="ghostLight"
                   size="lg"
                 >
-                  contact@jabby.ma
+                  contact@jabby.io
                 </Button>
               </div>
             </div>

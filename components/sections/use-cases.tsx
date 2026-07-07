@@ -65,7 +65,7 @@ export function UseCases() {
                     strokeWidth={1.7}
                     aria-hidden
                   />
-                  <h3 className="mt-4 text-base font-semibold tracking-[-0.01em] text-jabby-ink">
+                  <h3 className="mt-4 text-base font-semibold tracking-normal text-jabby-ink">
                     {useCase.title}
                   </h3>
                   <p className="mt-2.5 text-sm leading-6 text-jabby-muted">

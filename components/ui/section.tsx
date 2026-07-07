@@ -42,7 +42,7 @@ export function SectionHeading({
     >
       <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
       <h2
-        className={`mt-4 text-3xl font-semibold leading-[1.12] tracking-[-0.02em] sm:text-4xl ${
+        className={`mt-4 text-3xl font-semibold leading-[1.12] tracking-normal sm:text-4xl ${
           tone === "dark" ? "text-white" : "text-jabby-ink"
         }`}
       >
@@ -70,7 +70,7 @@ export function Logo({
 }) {
   return (
     <span
-      className={`inline-flex items-baseline text-[22px] font-bold leading-none tracking-[-0.02em] ${className}`}
+      className={`inline-flex items-baseline text-[22px] font-bold leading-none tracking-normal ${className}`}
     >
       <span className={tone === "dark" ? "text-white" : "text-jabby-blue"}>
         jabb

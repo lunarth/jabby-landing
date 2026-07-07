@@ -1,77 +1,63 @@
-import { Logo } from "@/components/ui/section";
+import { Logo } from "@/components/site/navbar";
 
 const columns = [
   {
-    title: "Plateforme",
+    title: "Produit",
     links: [
-      { label: "Modules", href: "#plateforme" },
+      { label: "Plateforme", href: "#plateforme" },
       { label: "Fonctionnement", href: "#fonctionnement" },
-      { label: "Orchestration", href: "#orchestration" },
-      { label: "Intégrations", href: "#integrations" }
-    ]
-  },
-  {
-    title: "Confiance",
-    links: [
-      { label: "Sécurité & conformité", href: "#securite" },
-      { label: "Nos engagements", href: "#engagements" },
-      { label: "FAQ", href: "#faq" }
+      { label: "Sécurité", href: "#securite" }
     ]
   },
   {
     title: "Entreprise",
     links: [
-      { label: "Secteurs", href: "#secteurs" },
+      { label: "FAQ", href: "#faq" },
       { label: "Contact", href: "#contact" },
-      { label: "contact@jabby.ma", href: "mailto:contact@jabby.ma" }
+      { label: "Demander une démo", href: "#contact" }
     ]
   }
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-jabby-navyDeep text-white">
-      <div className="container-shell py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
-          <div className="max-w-sm">
-            <Logo tone="dark" />
-            <p className="mt-4 text-sm leading-6 text-white/60">
-              L&apos;infrastructure du recouvrement amiable au Maroc.
-              Orchestration, traçabilité et pilotage pour les équipes finance,
-              recouvrement et risque.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
-            {columns.map((column) => (
-              <div key={column.title}>
-                <h3 className="text-xs font-semibold uppercase tracking-eyebrow text-white/50">
-                  {column.title}
-                </h3>
-                <ul className="mt-4 space-y-3">
-                  {column.links.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="focus-ring-dark rounded-md text-sm text-white/75 transition-colors hover:text-white"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+    <footer className="border-t border-jabby-border bg-white">
+      <div className="container-shell grid gap-10 py-14 md:grid-cols-[1.2fr_0.8fr] lg:grid-cols-[1.4fr_0.6fr]">
+        <div>
+          <Logo />
+          <p className="mt-4 max-w-sm text-sm leading-6 text-jabby-muted">
+            L&apos;infrastructure de recouvrement amiable des entreprises
+            marocaines. Du premier rappel à l&apos;encaissement.
+          </p>
+          <p className="mt-6 text-xs text-jabby-faint">Casablanca, Maroc</p>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-white/50">
-            © 2026 jabby. Tous droits réservés.
-          </p>
-          <p className="text-sm text-white/50">
-            Données traitées dans le respect de la loi 09-08 et des exigences
-            de la CNDP.
+        <div className="grid grid-cols-2 gap-8">
+          {columns.map((column) => (
+            <div key={column.title}>
+              <h3 className="eyebrow text-jabby-faint">{column.title}</h3>
+              <ul className="mt-4 space-y-3">
+                {column.links.map((link) => (
+                  <li key={`${column.title}-${link.label}`}>
+                    <a
+                      href={link.href}
+                      className="focus-ring rounded-md text-sm font-medium text-jabby-muted transition-colors hover:text-jabby-blue"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="border-t border-jabby-border/70">
+        <div className="container-shell flex flex-col items-start justify-between gap-3 py-6 sm:flex-row sm:items-center">
+          <p className="text-xs text-jabby-faint">© 2026 jabby. Tous droits réservés.</p>
+          <p className="text-xs text-jabby-faint">
+            Conçu pour les équipes finance qui veulent dormir tranquilles.
           </p>
         </div>
       </div>

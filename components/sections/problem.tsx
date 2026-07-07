@@ -1,84 +1,71 @@
+import type { ReactNode } from "react";
+import { Counter } from "@/components/ui/counter";
 import { Reveal } from "@/components/ui/reveal";
-import { SectionHeading } from "@/components/ui/section";
 
-const stats = [
+const stats: Array<{ value: ReactNode; label: string }> = [
   {
-    value: "97,4 Mds MAD",
-    label: "de créances en souffrance dans le système bancaire marocain"
+    value: (
+      <>
+        <Counter value={97.4} decimals={1} className="tracking-tight" />
+        <span className="ml-1.5 text-lg font-bold text-jabby-muted">Mds MAD</span>
+      </>
+    ),
+    label: "de créances en souffrance au Maroc (données marché 2024)"
   },
   {
-    value: "60 à 120 jours",
-    label: "de délais de paiement couramment constatés entre entreprises"
+    value: <span className="tracking-tight">Loi 69-21</span>,
+    label: "renforcement réglementaire des délais de paiement"
   },
   {
-    value: "Loi 69-21",
-    label: "un cadre renforcé sur les délais de paiement, avec sanctions"
+    value: (
+      <>
+        <span className="tracking-tight">60–120</span>
+        <span className="ml-1.5 text-lg font-bold text-jabby-muted">jours</span>
+      </>
+    ),
+    label: "de délais de paiement fréquemment constatés"
   },
   {
-    value: "250 000 MAD",
-    label: "d'amende encourue en cas de non-conformité déclarative"
-  }
-];
-
-const frictions = [
-  {
-    title: "Des relances dispersées",
-    text: "Tableurs, boîtes mail, appels non tracés : le recouvrement repose sur des efforts individuels, impossibles à industrialiser."
-  },
-  {
-    title: "Aucune traçabilité",
-    text: "Qui a relancé qui, quand, sur quel canal, avec quel résultat ? Sans journal d'audit, personne ne peut le démontrer."
-  },
-  {
-    title: "Des prestataires opaques",
-    text: "Externaliser sans visibilité expose votre marque et votre relation client à des pratiques que vous ne contrôlez pas."
+    value: (
+      <>
+        <Counter value={250000} className="tracking-tight" />
+        <span className="ml-1.5 text-lg font-bold text-jabby-muted">MAD</span>
+      </>
+    ),
+    label: "d'amendes possibles pour non-conformité"
   }
 ];
 
 export function Problem() {
   return (
-    <section id="constat" className="scroll-mt-20 bg-white">
-      <div className="container-shell py-24 lg:py-28">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Le constat"
-            title="Les retards de paiement sont devenus un risque structurel."
-            lede="Au Maroc, les délais s'allongent, la pression réglementaire augmente, et les méthodes traditionnelles ne suffisent plus à protéger la trésorerie."
-          />
+    <section className="section-pad relative bg-white py-24 lg:py-32">
+      <div className="container-shell">
+        <Reveal className="mx-auto max-w-4xl text-center">
+          <p className="eyebrow text-jabby-orange">Le marché</p>
+          <h2 className="mt-4 text-3xl font-bold leading-[1.12] tracking-normal text-jabby-ink sm:text-[44px] sm:leading-[1.1]">
+            Le recouvrement est devenu
+            <span className="text-jabby-blue"> un enjeu stratégique.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-jabby-muted sm:text-xl sm:leading-9">
+            Les retards de paiement fragilisent la trésorerie des entreprises
+            marocaines, mobilisent les équipes finance et exposent à une
+            pression réglementaire croissante. Les traiter au tableur ne
+            suffit plus.
+          </p>
         </Reveal>
 
-        <Reveal delay={80}>
-          <dl className="mt-14 grid divide-y divide-jabby-border border-y border-jabby-border sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
-            {stats.map((stat) => (
-              <div key={stat.value} className="px-1 py-7 sm:px-6 lg:first:pl-0">
-                <dt className="sr-only">{stat.label}</dt>
-                <dd>
-                  <p className="text-[26px] font-semibold tabular-nums tracking-[-0.02em] text-jabby-ink">
-                    {stat.value}
-                  </p>
-                  <p className="mt-2.5 text-sm leading-6 text-jabby-muted">
-                    {stat.label}
-                  </p>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
-          {frictions.map((friction, index) => (
-            <Reveal key={friction.title} delay={index * 70}>
-              <article className="h-full rounded-2xl border border-jabby-border bg-jabby-bg/60 p-7">
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat, index) => (
+            <Reveal key={stat.label} delay={index * 90}>
+              <article className="card-hover group relative h-full overflow-hidden rounded-2xl border border-jabby-border bg-gradient-to-b from-white to-jabby-bg/50 p-6 shadow-card">
                 <span
-                  className="block h-0.5 w-8 rounded-full bg-jabby-orange"
+                  className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-jabby-blue/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   aria-hidden
                 />
-                <h3 className="mt-5 text-lg font-semibold tracking-[-0.01em] text-jabby-ink">
-                  {friction.title}
+                <h3 className="text-[28px] font-bold leading-tight text-jabby-ink">
+                  {stat.value}
                 </h3>
-                <p className="mt-3 text-[15px] leading-7 text-jabby-muted">
-                  {friction.text}
-                </p>
+                <p className="mt-3 text-sm leading-6 text-jabby-muted">{stat.label}</p>
               </article>
             </Reveal>
           ))}

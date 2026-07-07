@@ -1,17 +1,23 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 
+/**
+ * Scroll reveal wrapper. Elements fade + rise once when they enter the
+ * viewport. Without JavaScript everything stays visible (see globals.css).
+ */
 export function Reveal({
   children,
   delay = 0,
-  className = ""
+  className = "",
+  as: Tag = "div"
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
+  as?: ElementType;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const node = ref.current;
@@ -41,13 +47,13 @@ export function Reveal({
   }, []);
 
   return (
-    <div
+    <Tag
       ref={ref}
       data-reveal
       className={className}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={delay ? { "--reveal-delay": `${delay}ms` } : undefined}
     >
       {children}
-    </div>
+    </Tag>
   );
 }

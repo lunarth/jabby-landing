@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/"
     },
-    sitemap: "https://jabby.ma/sitemap.xml"
+    sitemap: "https://jabby.io/sitemap.xml"
   };
 }
