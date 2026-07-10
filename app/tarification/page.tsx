@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 const principles = [
   {
     number: "01",
-    title: "Zéro coût d'entrée",
-    text: "Pas de frais d'installation, pas d'abonnement, pas de minimum facturé. Le cadrage et la mise en route sont inclus."
+    title: "Tarification selon votre portefeuille",
+    text: "Le taux est défini selon l'ancienneté, les montants, le volume et la complexité de vos créances. Le cadrage est gratuit et la proposition est écrite."
   },
   {
     number: "02",
@@ -30,8 +30,8 @@ const principles = [
   },
   {
     number: "03",
-    title: "Taux défini au cadrage",
-    text: "Le taux dépend de l'ancienneté des créances, des montants unitaires et du volume confié. Il est fixé contractuellement, avant le premier dossier."
+    title: "Un taux clair au cadrage",
+    text: "Vous connaissez les conditions avant le premier dossier. Elles sont fixées contractuellement, sans ligne de facturation additionnelle."
   }
 ];
 
